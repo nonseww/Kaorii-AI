@@ -1,4 +1,5 @@
 import { useAppStore } from "../../shared/store/appStore";
+import { ChatView } from "../../views/ChatView";
 import { SmallWidgetView } from "../../views/SmallWidgetView";
 
 export const AppController = () => {
@@ -8,6 +9,7 @@ export const AppController = () => {
     case "widget":
       return <SmallWidgetView />;
     case "chat":
+      return <ChatView />;
     case "full":
   }
 };

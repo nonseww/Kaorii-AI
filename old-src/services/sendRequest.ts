@@ -1,6 +1,6 @@
 import { invoke } from "@tauri-apps/api/core";
 import { useAppStore } from "../store/useAppStore";
-import type { Message } from "../types/Message";
+import type { Message } from "../shared/types/Message";
 
 interface Props {
   text: string;

@@ -1,5 +1,5 @@
 import DefaultLogo from "../../assets/Logo.png";
-import classes from "./SmallWidget.module.scss";
+import classes from "./";
 import { useDragWindow } from "../../hooks/useDragWindow";
 import { useAppStore } from "../../store/useAppStore";
 import { convertFileSrc } from "@tauri-apps/api/core";

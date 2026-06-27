@@ -1,7 +1,7 @@
 import { create } from "zustand";
-import type { Message } from "../types/Message";
+import type { Message } from "../shared/types/Message";
 import { prompts } from "../data/prompts";
-import { AppConfig } from "../types/AppConfig";
+import { AppConfig } from "../shared/types/AppConfig";
 import { invoke } from "@tauri-apps/api/core";
 
 interface AppState {

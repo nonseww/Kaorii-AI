@@ -1,5 +1,5 @@
 import { Chat } from "./components/Chat";
-import { SmallWidget } from "./components/SmallWidget";
+import { SmallWidget } from "./views/SmallWidget";
 import { useToggleWindow } from "./hooks/useToggleWindow";
 import "./App.css";
 import { useAppInit } from "./hooks/useAppInit";

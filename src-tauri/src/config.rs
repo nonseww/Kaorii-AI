@@ -10,15 +10,28 @@ pub enum EngineType {
     Api
 }
 
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
+#[serde(rename_all = "lowercase")]
+pub enum EngineWhisperType {
+    #[default]
+    Local,
+    Api
+}
+
 #[derive(Serialize, Deserialize, Default, Clone)]
 pub struct AppConfig {
-    pub model_path: Option<String>,
+    pub ai_model_path: Option<String>,
     pub icon_path: Option<String>,
-    pub api_model: Option<String>,
+    pub whisper_model_path: Option<String>,
+    pub ai_api_model: Option<String>,
+    pub whisper_api_model: Option<String>,
     pub api_key_masked: Option<String>,
 
     #[serde(default)]
-    pub engine_type: EngineType,
+    pub ai_engine_type: EngineType,
+
+    #[serde(default)]
+    pub whisper_enginer_type: EngineWhisperType,
 }
 
 fn get_config_path(app_handle: &tauri::AppHandle) -> std::path::PathBuf {

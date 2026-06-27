@@ -2,14 +2,26 @@ use std::thread;
 use std::time::Duration;
 use enigo::Enigo;
 use enigo::KeyboardControllable;
+use serde::Deserialize;
+use serde::Serialize;
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
+#[serde(rename_all = "lowercase")]
+pub enum AppState {
+     #[default]
+    Small,
+    Chat,
+    Full
+}
 
 #[tauri::command]
-pub fn resize_window(window: tauri::WebviewWindow, expanded: bool) {
-    let (w, h) = if expanded {
-        (450.0, 600.0)
-    } else {
-        (60.0, 60.0)
+pub fn resize_window(window: tauri::WebviewWindow, state: AppState) {
+    let (w, h) = match state {
+        AppState::Small => (70.0, 70.0),
+        AppState::Chat => (450.0, 600.0),
+        AppState::Full => (1200.0, 800.0)
     };
+
     let _ = window.set_size(tauri::LogicalSize::new(w, h));
 
     #[cfg(target_os = "linux")]
@@ -20,7 +32,7 @@ pub fn resize_window(window: tauri::WebviewWindow, expanded: bool) {
         }
     }
 
-    if expanded {
+    if state != AppState::Small {
         let _ = window.unminimize();
         let _ = window.show();
         let _ = window.set_focus();

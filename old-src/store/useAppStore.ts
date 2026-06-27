@@ -1,0 +1,111 @@
+import { create } from "zustand";
+import type { Message } from "../shared/types/Message";
+import { prompts } from "../data/prompts";
+import { AppConfig } from "../shared/types/AppConfig";
+import { invoke } from "@tauri-apps/api/core";
+
+interface AppState {
+  config: AppConfig;
+  isServerReady: boolean;
+  isCheckingModel: boolean;
+  isConfigLoaded: boolean;
+  setConfig: (config: AppConfig) => void;
+  loadConfig: () => Promise<void>;
+  updateConfig: (partialConfig: Partial<AppConfig>) => void;
+  setIsServerReady: (state: boolean) => void;
+  setIsCheckingModel: (state: boolean) => void;
+
+  messages: Message[];
+  isLoading: boolean;
+  error: string;
+  isExpanded: boolean;
+  isCleared: boolean;
+  addMessage: (m: Message) => void;
+  setMessages: (ms: Message[]) => void;
+  clearMessages: () => void;
+  setIsLoading: (state: boolean) => void;
+  setError: (e: string) => void;
+  setIsExpanded: (state: boolean) => void;
+  setIsCleared: (state: boolean) => void;
+}
+
+export const useAppStore = create<AppState>((set, get) => ({
+  config: {
+    ai_model_path: null,
+    whisper_model_path: null,
+
+    ai_api_model: null,
+    whisper_api_model: null,
+
+    api_key_masked: null,
+    ai_engine_type: "local",
+    whisper_engine_type: "local",
+
+    icon_path: null,
+  },
+  isServerReady: false,
+  isCheckingModel: true,
+  isConfigLoaded: false,
+  messages: [
+    {
+      role: "system",
+      content: prompts().systemInit,
+    },
+  ],
+  isLoading: false,
+  error: "",
+  isExpanded: false,
+  isCleared: true,
+
+  // config
+  setConfig: (config) => set({ config: config }),
+  loadConfig: async () => {
+    try {
+      const config = await invoke<AppConfig>("get_config");
+      set({ config, isConfigLoaded: true });
+    } catch (err) {
+      console.error("Failed to load config:", err);
+      set({ isConfigLoaded: true });
+    }
+  },
+  updateConfig: async (partialConfig) => {
+    let updatedConfig = { ...get().config, ...partialConfig };
+
+    if (partialConfig.api_key_masked) {
+      await invoke("save_api_key", { key: partialConfig.api_key_masked });
+      const masked = `${partialConfig.api_key_masked}`.slice(0, 15) + "...";
+      updatedConfig = { ...updatedConfig, api_key_masked: masked };
+    }
+
+    set({ config: updatedConfig });
+
+    try {
+      await invoke("update_config", { config: updatedConfig });
+    } catch (err) {
+      console.error("Failed to save config:", err);
+    }
+  },
+  setIsServerReady: (state) => set({ isServerReady: state }),
+
+  // messages
+  addMessage: (m) => set((state) => ({ messages: [...state.messages, m] })),
+  setMessages: (ms) => set({ messages: ms }),
+  clearMessages: () => {
+    set({
+      messages: [
+        {
+          role: "system",
+          content: prompts().systemInit,
+        },
+      ],
+    });
+    set({ isCleared: true });
+  },
+
+  //states
+  setIsLoading: (state) => set({ isLoading: state }),
+  setError: (e) => set({ error: e }),
+  setIsExpanded: (state) => set({ isExpanded: state }),
+  setIsCleared: (state) => set({ isCleared: state }),
+  setIsCheckingModel: (state) => set({ isCheckingModel: state }),
+}));

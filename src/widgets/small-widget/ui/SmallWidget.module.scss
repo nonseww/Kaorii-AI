@@ -1,0 +1,18 @@
+.logo {
+  width: 70px !important;
+  height: 70px !important;
+  pointer-events: none;
+  overflow: hidden;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #133f06;
+  object-fit: cover;
+}
+
+.container {
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+}

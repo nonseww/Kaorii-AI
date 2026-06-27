@@ -17,7 +17,7 @@ pub enum AppState {
 #[tauri::command]
 pub fn resize_window(window: tauri::WebviewWindow, state: AppState) {
     let (w, h) = match state {
-        AppState::Small => (60.0, 60.0),
+        AppState::Small => (70.0, 70.0),
         AppState::Chat => (450.0, 600.0),
         AppState::Full => (1200.0, 800.0)
     };

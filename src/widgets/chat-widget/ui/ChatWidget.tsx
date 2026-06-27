@@ -1,3 +1,4 @@
+import { ChatHeader } from "@/widgets/chat-header";
 import Box from "@mui/material/Box";
 
 export const ChatWidget = () => {
@@ -14,6 +15,8 @@ export const ChatWidget = () => {
         color: "#e0e0e0",
         border: "1px solid #3a3a3a",
       }}
-    ></Box>
+    >
+      <ChatHeader />
+    </Box>
   );
 };

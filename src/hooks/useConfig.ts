@@ -4,7 +4,7 @@ import { open } from "@tauri-apps/plugin-dialog";
 export const useConfig = () => {
   const store = useAppStore();
 
-  const handleSelectModel = async () => {
+  const handleSelectAIModel = async () => {
     const selectedModel = await open({
       multiple: false,
       filters: [{ name: "AI model", extensions: ["gguf"] }],
@@ -14,12 +14,32 @@ export const useConfig = () => {
       try {
         store.setError("");
         store.setIsServerReady(false);
-        await store.updateConfig({ model_path: selectedModel });
+        await store.updateConfig({ ai_model_path: selectedModel });
         store.clearMessages();
         return true;
       } catch (e) {
-        console.error("Failed to save path to model", e);
-        store.setError("Failed to save path to model");
+        console.error("Failed to save path to AI model", e);
+        store.setError("Failed to save path to AI model");
+        store.setIsLoading(false);
+        return false;
+      }
+    }
+  };
+
+  const handleSelectWhisperModel = async () => {
+    const selectedModel = await open({
+      multiple: false,
+      filters: [{ name: "Whisper model", extensions: ["gguf"] }],
+    });
+
+    if (selectedModel && typeof selectedModel === "string") {
+      try {
+        store.setError("");
+        await store.updateConfig({ whisper_model_path: selectedModel });
+        return true;
+      } catch (e) {
+        console.error("Failed to save path to Whisper model", e);
+        store.setError("Failed to save path to Whisper model");
         store.setIsLoading(false);
         return false;
       }
@@ -39,7 +59,7 @@ export const useConfig = () => {
         store.setIsServerReady(false);
         await store.updateConfig({
           api_key_masked: apiKey,
-          api_model: modelName,
+          ai_api_model: modelName,
         });
         store.clearMessages();
         return true;
@@ -52,13 +72,23 @@ export const useConfig = () => {
     }
   };
 
-  const handleSwitchEngine = async (type: "local" | "api") => {
+  const handleSwitchAIEngine = async (type: "local" | "api") => {
     try {
       store.clearMessages();
-      await store.updateConfig({ engine_type: type });
+      await store.updateConfig({ ai_engine_type: type });
     } catch (e) {
-      console.error("Error switch updating:", e);
-      store.setError("Error switch updating");
+      console.error("Error ai switch updating:", e);
+      store.setError("Error ai switch updating");
+      store.setIsLoading(false);
+    }
+  };
+
+  const handleSwitchEngineWhisper = async (type: "local" | "api") => {
+    try {
+      await store.updateConfig({ whisper_engine_type: type });
+    } catch (e) {
+      console.error("Error whisper switch updating:", e);
+      store.setError("Error whisper switch updating");
       store.setIsLoading(false);
     }
   };
@@ -83,7 +113,9 @@ export const useConfig = () => {
   return {
     handleSelectIcon,
     handleSelectApiModel,
-    handleSwitchEngine,
-    handleSelectModel,
+    handleSwitchAIEngine,
+    handleSelectAIModel,
+    handleSelectWhisperModel,
+    handleSwitchEngineWhisper,
   };
 };

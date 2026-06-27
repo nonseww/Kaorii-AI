@@ -17,7 +17,7 @@ pub async fn ask_openrouter(
     config: AppConfig,
     messages: Vec<UserMessage>
 ) -> Result<String, String> {
-    let model_name = config.api_model.ok_or("No API model selected")?;
+    let model_name = config.ai_api_model.ok_or("No API model selected")?;
     let api_key = get_api_key_internal().map_err(|e| e.to_string())?;
 
     let client = OpenRouterClient::builder()

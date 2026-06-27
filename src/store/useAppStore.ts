@@ -31,11 +31,17 @@ interface AppState {
 
 export const useAppStore = create<AppState>((set, get) => ({
   config: {
-    model_path: null,
-    icon_path: null,
-    api_model: null,
+    ai_model_path: null,
+    whisper_model_path: null,
+
+    ai_api_model: null,
+    whisper_api_model: null,
+
     api_key_masked: null,
-    engine_type: "local",
+    ai_engine_type: "local",
+    whisper_engine_type: "local",
+
+    icon_path: null,
   },
   isServerReady: false,
   isCheckingModel: true,

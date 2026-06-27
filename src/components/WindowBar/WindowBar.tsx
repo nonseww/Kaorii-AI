@@ -3,6 +3,7 @@ import Minimaze from "../../assets/minimaze.png";
 import Close from "../../assets/close.png";
 import Tool from "../../assets/Tool.svg";
 import Restart from "../../assets/Refresh.svg";
+import Kaorii from "../../assets/Kaorii.svg";
 import classes from "./WindowBar.module.scss";
 
 interface Props {
@@ -27,6 +28,10 @@ export const WindowBar = ({
         <button onClick={onRestartChat} title="Restart chat">
           <Icon src={Restart} />
         </button>
+      </div>
+
+      <div className={classes.kaoriiContainer}>
+        <Icon src={Kaorii} />
       </div>
 
       <div className={classes.actionButtons}>

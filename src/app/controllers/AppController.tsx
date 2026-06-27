@@ -6,7 +6,7 @@ export const AppController = () => {
   const appState = useAppStore((s) => s.state);
 
   switch (appState) {
-    case "widget":
+    case "small":
       return <SmallWidgetView />;
     case "chat":
       return <ChatView />;

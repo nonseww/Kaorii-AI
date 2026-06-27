@@ -6,8 +6,11 @@ import MinimazeIcon from "@/shared/assets/icons/Minimaze.svg?react";
 import MaximazeIcon from "@/shared/assets/icons/Maximaze.svg?react";
 import CloseIcon from "@/shared/assets/icons/Close.svg?react";
 import Stack from "@mui/material/Stack";
+import { useMinimazeWindow } from "../lib/useMinimazeWIndow";
 
 export const ChatHeader = () => {
+  const minimazeWindow = useMinimazeWindow();
+
   return (
     <Box
       data-tauri-drag-region
@@ -26,7 +29,11 @@ export const ChatHeader = () => {
 
       <Stack sx={{ flexDirection: "row", gap: 1 }}>
         <Tooltip title="minimaze">
-          <IconButton size="small" data-tauri-drag-region={false}>
+          <IconButton
+            size="small"
+            data-tauri-drag-region={false}
+            onClick={minimazeWindow}
+          >
             <MinimazeIcon width={18} height={18} />
           </IconButton>
         </Tooltip>

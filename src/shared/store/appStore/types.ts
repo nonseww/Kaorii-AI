@@ -1,1 +1,1 @@
-export type AppStateTypes = "widget" | "chat" | "full";
+export type AppStateTypes = "small" | "chat" | "full";

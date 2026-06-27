@@ -1,6 +1,6 @@
-//import DefaultLogo from "../../assets/Logo.png";
+import DefaultLogo from "@/shared/assets/Logo.jpg";
 import classes from "./SmallWidget.module.scss";
-//import { useDragWindow } from "../../hooks/useDragWindow";
+import { useDragWindow } from "@/shared/lib";
 //import { convertFileSrc } from "@tauri-apps/api/core";
 import { AppStateTypes } from "../../../shared/store/appStore/types";
 
@@ -9,19 +9,20 @@ interface Props {
 }
 
 export const SmallWidget = ({ onClick }: Props) => {
-  //const { handleMouseDown, handleMouseMove, handleMouseUp } = useDragWindow();
+  const { handleMouseDown, handleMouseMove, handleMouseUp } = useDragWindow();
   //const iconPath = useAppStore((s) => s.config.icon_path);
   //const imgSrc = iconPath ? convertFileSrc(iconPath) : DefaultLogo;
+  const imgSrc = DefaultLogo;
 
   return (
     <div
       className={classes.container}
       onDoubleClick={() => onClick("chat")}
-      // onMouseDown={handleMouseDown}
-      // onMouseMove={handleMouseMove}
-      // onMouseUp={handleMouseUp}
+      onMouseDown={handleMouseDown}
+      onMouseMove={handleMouseMove}
+      onMouseUp={handleMouseUp}
     >
-      <img src={"imgSrc"} className={classes.logo} />
+      <img src={imgSrc} className={classes.logo} />
     </div>
   );
 };

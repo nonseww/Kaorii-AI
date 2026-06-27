@@ -6,11 +6,13 @@ import MinimazeIcon from "@/shared/assets/icons/Minimaze.svg?react";
 import MaximazeIcon from "@/shared/assets/icons/Maximaze.svg?react";
 import CloseIcon from "@/shared/assets/icons/Close.svg?react";
 import Stack from "@mui/material/Stack";
-import { useMinimazeWindow } from "../lib/useMinimazeWIndow";
+import {
+  minimazeWindow,
+  closeWindow,
+  maximazeWindow,
+} from "@/features/change-app-state";
 
 export const ChatHeader = () => {
-  const minimazeWindow = useMinimazeWindow();
-
   return (
     <Box
       data-tauri-drag-region
@@ -39,13 +41,21 @@ export const ChatHeader = () => {
         </Tooltip>
 
         <Tooltip title="maximaze">
-          <IconButton size="small" data-tauri-drag-region={false}>
+          <IconButton
+            size="small"
+            data-tauri-drag-region={false}
+            onClick={maximazeWindow}
+          >
             <MaximazeIcon width={18} height={18} />
           </IconButton>
         </Tooltip>
 
         <Tooltip title="close">
-          <IconButton size="small" data-tauri-drag-region={false}>
+          <IconButton
+            size="small"
+            data-tauri-drag-region={false}
+            onClick={closeWindow}
+          >
             <CloseIcon width={18} height={18} />
           </IconButton>
         </Tooltip>

@@ -3,7 +3,7 @@ import { ChatView } from "../../views/ChatView";
 import { SmallWidgetView } from "../../views/SmallWidgetView";
 
 export const AppController = () => {
-  const appState = useAppStore((s) => s.state);
+  const appState = useAppStore((s) => s.screenState);
 
   switch (appState) {
     case "small":

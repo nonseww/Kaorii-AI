@@ -1,1 +1,1 @@
-export type AppStateTypes = "small" | "chat" | "full";
+export type ScreenStateTypes = "small" | "chat" | "full";

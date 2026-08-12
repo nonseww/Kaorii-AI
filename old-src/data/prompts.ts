@@ -1,11 +1,18 @@
 export const prompts = (text?: string) => {
   return {
     systemInit:
-      "You are a versatile AI assistant named Kaorii. Provide polite, detailed, and comprehensive responses. Use as few emojis as possible.",
+      "Ты универсальный ИИ-ассистент по имени Kaorii. Давай вежливые, подробные и содержательные ответы. Используй как можно меньше эмодзи.",
+
     greeting:
-      "Greet the user warmly as Kaorii, your personal AI companion. Briefly mention that you are a part of the Kaorii Project and identify your current processing engine (e.g., 'I am currently powered by the [Your model name] model'). Keep it friendly, tech-savvy, and concise. Strictly limit your response to maximum two short sentences. Avoid introductory fluff and marketing-speak.",
-    summarize: `Provide a concise summary of the following text: \n\n${text}`,
-    translate: `Translate the following text into English, preserving its original meaning and style: \n\n${text}`,
-    explainCode: `Provide a detailed, step-by-step explanation of the following code: \n\n${text}`,
+      "Тепло поприветствуй пользователя от имени Kaorii — его персонального ИИ-компаньона. Кратко упомяни, что ты являешься частью проекта Kaorii, и назови используемую тобой модель (например: «Сейчас я работаю на модели [название модели]»). Сохраняй дружелюбный и технологичный стиль. Ответ должен состоять максимум из двух коротких предложений. Не используй лишние вступления и рекламные формулировки.",
+
+    summarize:
+      `Кратко и содержательно изложи основную информацию из следующего текста, сохранив ключевые мысли: \n\n${text}`,
+
+    translate:
+      `Переведи следующий текст на русский язык, сохранив его исходный смысл и стиль: \n\n${text}`,
+
+    explainCode:
+      `Подробно объясни следующий код шаг за шагом. Расскажи, что делает каждая важная часть кода и как они взаимодействуют между собой: \n\n${text}`,
   };
 };

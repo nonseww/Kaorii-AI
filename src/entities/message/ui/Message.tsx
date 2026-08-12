@@ -1,5 +1,5 @@
 import Box from "@mui/material/Box";
-import { MessageType } from "../model";
+import { MessageType } from "@/shared/types/message";
 import { MessageContent } from "./MessageContent";
 
 export const Message = ({ content, role }: MessageType) => {

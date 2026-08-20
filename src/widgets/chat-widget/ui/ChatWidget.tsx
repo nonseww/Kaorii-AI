@@ -1,4 +1,4 @@
-import { MessageType } from "@/entities/message/model";
+import { MessageType } from "@/shared/types/message";
 import { ChatHeader } from "@/widgets/chat-header";
 import { ChatMessages } from "@/widgets/chat-messages";
 import Box from "@mui/material/Box";

@@ -8,7 +8,7 @@ export const Message = ({ content, role }: MessageType) => {
   return (
     <Box
       sx={{
-        backgroundColor: isUser ? "#3b82f6" : "#2c2c2c",
+        backgroundColor: isUser ? "#4e4e4e" : "#2c2c2c",
         boxShadow: "0 2px 4px rgba(0,0,0,0.3)",
         borderRadius: 3,
         px: 1.75,

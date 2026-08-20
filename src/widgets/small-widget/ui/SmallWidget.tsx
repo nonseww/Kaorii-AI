@@ -2,10 +2,10 @@ import DefaultLogo from "@/shared/assets/Logo.jpg";
 import classes from "./SmallWidget.module.scss";
 import { useDragWindow } from "@/shared/lib";
 //import { convertFileSrc } from "@tauri-apps/api/core";
-import { AppStateTypes } from "../../../shared/store/appStore/types";
+import { ScreenStateTypes } from "@/shared/store/appStore/types";
 
 interface Props {
-  onClick: (state: AppStateTypes) => void;
+  onClick: (state: ScreenStateTypes) => void;
 }
 
 export const SmallWidget = ({ onClick }: Props) => {

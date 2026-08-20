@@ -1,5 +1,5 @@
 import { Message } from "@/entities/message";
-import { MessageType } from "@/entities/message/model";
+import { MessageType } from "@/shared/types/message";
 import Stack from "@mui/material/Stack";
 
 export const ChatMessages = ({ messages }: { messages: MessageType[] }) => {

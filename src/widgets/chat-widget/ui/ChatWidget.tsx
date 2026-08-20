@@ -1,3 +1,4 @@
+import { SendMessageBox } from "@/features/send-message";
 import { MessageType } from "@/shared/types/message";
 import { ChatHeader } from "@/widgets/chat-header";
 import { ChatMessages } from "@/widgets/chat-messages";
@@ -57,6 +58,7 @@ export const ChatWidget = () => {
     >
       <ChatHeader />
       <ChatMessages messages={mockMessages} />
+      <SendMessageBox />
     </Box>
   );
 };

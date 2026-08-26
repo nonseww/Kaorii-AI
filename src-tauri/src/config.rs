@@ -2,17 +2,9 @@ use std::fs;
 use serde::{Serialize, Deserialize};
 use tauri::Manager;
 
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
+#[derive(Serialize, Deserialize, Debug, Clone, Copy, PartialEq, Default)]
 #[serde(rename_all = "lowercase")]
 pub enum EngineType {
-    #[default]
-    Local,
-    Api
-}
-
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
-#[serde(rename_all = "lowercase")]
-pub enum EngineWhisperType {
     #[default]
     Local,
     Api
@@ -22,16 +14,11 @@ pub enum EngineWhisperType {
 pub struct AppConfig {
     pub ai_model_path: Option<String>,
     pub icon_path: Option<String>,
-    pub whisper_model_path: Option<String>,
     pub ai_api_model: Option<String>,
-    pub whisper_api_model: Option<String>,
     pub api_key_masked: Option<String>,
 
     #[serde(default)]
     pub ai_engine_type: EngineType,
-
-    #[serde(default)]
-    pub whisper_enginer_type: EngineWhisperType,
 }
 
 fn get_config_path(app_handle: &tauri::AppHandle) -> std::path::PathBuf {
@@ -52,13 +39,17 @@ pub fn update_config(app_handle: tauri::AppHandle, config: AppConfig) -> Result<
     save_config_to_disk(&app_handle, config)
 }
 
-#[tauri::command]
-pub fn get_config(app_handle: tauri::AppHandle) -> Result<AppConfig, String> {
+pub fn load_config(app_handle: &tauri::AppHandle) -> Result<AppConfig, String> {
     let config_path = get_config_path(&app_handle);
     if config_path.exists() {
         let json = fs::read_to_string(config_path).map_err(|e| e.to_string())?;
         let config: AppConfig = serde_json::from_str(&json).map_err(|e| e.to_string())?;
-        return Ok(config)
+        return Ok(config);
     }
     Ok(AppConfig::default())
+}
+
+#[tauri::command]
+pub fn get_config(app_handle: tauri::AppHandle) -> Result<AppConfig, String> {
+    load_config(&app_handle)
 }

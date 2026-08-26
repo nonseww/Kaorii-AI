@@ -1,14 +1,27 @@
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { SendMessageButton } from "./SendMessageButton";
+import { useState } from "react";
+import { handleSendMessage } from "../lib/handleSendMessage";
 
 export const SendMessageBox = () => {
+  const [message, setMessage] = useState("");
+
+  const handleSend = async () => {
+    if (!message.trim()) return;
+
+    await handleSendMessage(message);
+    setMessage("");
+  };
+
   return (
     <Box sx={{ width: "100%", position: "relative" }}>
       <TextField
         multiline
         minRows={1}
         maxRows={6}
+        value={message}
+        onChange={(e) => setMessage(e.target.value)}
         placeholder="Enter your message..."
         sx={{
           width: "100%",
@@ -38,7 +51,7 @@ export const SendMessageBox = () => {
         }}
       />
       <Box sx={{ position: "absolute", zIndex: 999, right: 10, bottom: 10 }}>
-        <SendMessageButton />
+        <SendMessageButton handleSendMessage={handleSend} />
       </Box>
     </Box>
   );

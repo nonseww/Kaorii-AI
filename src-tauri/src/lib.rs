@@ -20,7 +20,7 @@ pub fn run() {
             window_extra::resize_window, 
             window_extra::copy_selected_text, 
             window_extra::move_app_to_side,
-            ai::ask_openrouter,
+            ai::ask_ai,
             security::save_api_key,
             security::delete_api_key,
         ])
